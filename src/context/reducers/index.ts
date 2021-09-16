@@ -1,35 +1,39 @@
 import { AppState, StateAction } from '@types';
 import { equals, isEmpty } from 'ramda';
 import {
-    SET_RECORD,
-    CLEAR_ERROR
+    SET_PROMOTED_LESSONS,
+    SET_ALL_LESSONS,
+    SET_USER_LESSONS,
+    CLEAR_PROMOTED_LESSONS
 } from '../types';
 
 export const initialState: AppState = {
-    records: []
+    promotedLessons: [],
+    allLessons: [],
+    userLessons: [],
 };
 
 export const reducer = (state: AppState, action: StateAction): AppState => {
     switch (action.type) {
-        case SET_RECORD:
-            if (equals(state.records, action.payload)) {
+        case SET_PROMOTED_LESSONS:
+            if (equals(state.promotedLessons, action.payload)) {
                 return state;
             }
 
             return {
                 ...state,
-                records: {
-                    ...state.records,
+                promotedLessons: {
+                    ...state.promotedLessons,
                     ...action.payload,
                 },
             };
 
-        case CLEAR_ERROR:
-            if (isEmpty(state.records)) {
+        case CLEAR_PROMOTED_LESSONS:
+            if (isEmpty(state.promotedLessons)) {
                 return state;
             }
 
-            return { ...state, records: [] };
+            return { ...state, promotedLessons: [] };
 
         default:
             return state;

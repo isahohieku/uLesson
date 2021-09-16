@@ -1,9 +1,9 @@
-import { SET_RECORD, CLEAR_ERROR } from "@context/types";
+import { SET_PROMOTED_LESSONS, CLEAR_PROMOTED_LESSONS } from "@context/types";
 
 export const setRecord = dispatch => data => {
-    dispatch({ type: SET_RECORD, payload: data });
+    dispatch({ type: SET_PROMOTED_LESSONS, payload: data });
 };
 
 export const clearRecord = dispatch => () => {
-    dispatch({ type: CLEAR_ERROR });
+    dispatch({ type: CLEAR_PROMOTED_LESSONS });
 };

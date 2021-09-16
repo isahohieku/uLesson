@@ -2,11 +2,22 @@ import _axios from 'axios';
 import axiosRetry from 'axios-retry';
 
 const axios = _axios.create({
-  baseURL: `test base`,
+  baseURL: 'https://mock-live-lessons.herokuapp.com/api/v1/',
   headers: {
     'Content-Type': 'application/json'
   }
 });
+
+axios.interceptors.request.use(
+  config => {
+    const token = localStorage.getItem('token');
+    if (token && token !== 'null') {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  error => Promise.reject(error)
+);
 
 const retryDelay = (retryNumber = 0) => {
   const seconds = Math.pow(2, retryNumber) * 1000;

@@ -6,13 +6,14 @@ export interface StateAction {
 }
 
 export interface AppState {
-    records: [];
+    promotedLessons: [];
+    allLessons: [];
+    userLessons: [];
 }
 
 export interface AppContext {
     state: AppState;
     dispatch: Dispatch<SetStateAction<AppState>>;
-    // dispatch: ({ type }: { type: string }) => void;
 }
 
 export interface StateProviderProps {

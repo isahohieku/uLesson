@@ -2,6 +2,10 @@ $color-secondary: #ededee;
 
 html,
 body {
-    background-color: $color-secondary;
-    font-family: 'Mulish', sans-serif;
+    background-color: $color-secondary !important;
+    font-family: 'Mulish', sans-serif !important;
+}
+
+.text-item {
+    font-family: 'Itim', cursive !important;
 }

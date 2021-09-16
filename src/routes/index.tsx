@@ -3,8 +3,9 @@ import { Switch, Route } from "react-router-dom";
 import StateProvider from '@context';
 import Loading from '@components/Loader';
 import WithSuspense from '@hocs/with-suspense';
-import Home from "@pages/home";
-import Lessons from "@pages/lessons";
+
+const Home = lazy(() => import('@pages/home'));
+const Lessons = lazy(() => import('@pages/lessons'));
 
 const Routes = () => (
   <StateProvider>

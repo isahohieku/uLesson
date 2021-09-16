@@ -59,6 +59,12 @@
             "@routes": [
                 "src/routes"
             ],
+            "@utils/*": [
+                "src/utils/*"
+            ],
+            "@assets/svg/*": [
+                "src/assets/svg/*"
+            ],
         }
     },
     "include": [

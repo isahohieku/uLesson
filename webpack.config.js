@@ -43,6 +43,9 @@ module.exports = {
             '@hooks': path.resolve(__dirname, 'src', 'hooks'),
             '@hocs': path.resolve(__dirname, 'src', 'hocs'),
             '@pages': path.resolve(__dirname, 'src', 'pages'),
+            '@utils': path.resolve(__dirname, 'src', 'utils'),
+            '@assets': path.resolve(__dirname, 'src', 'assets'),
+            '@assets/svg': path.resolve(__dirname, 'src', 'assets/svg'),
         }
     },
     module: {
@@ -58,7 +61,11 @@ module.exports = {
                 },
             },
             {
-                test: /\.png|svg|jpg|gif$/,
+                test: /\.svg$/,
+                use: ['@svgr/webpack'],
+              },
+            {
+                test: /\.png|jpg|gif$/,
                 use: ["file-loader"],
             },
             {
