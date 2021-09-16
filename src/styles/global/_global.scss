@@ -1,11 +1,143 @@
 $color-secondary: #ededee;
+$color-red: #da0000;
+$color-orange: #f9ad6d;
+$color-purple: #7b7fda;
+$color-green: #68bc98;
+$color-blue: #506aac;
+$color-light-red: #ea7052;
 
 html,
 body {
     background-color: $color-secondary !important;
-    font-family: 'Mulish', sans-serif !important;
+    font-family: "Mulish", sans-serif !important;
 }
 
-.text-item {
-    font-family: 'Itim', cursive !important;
+.text- {
+    &item {
+        font-family: "Itim", cursive !important;
+    }
+
+    &sm {
+        font-size: 14px !important;
+    }
+
+    &red {
+        color: $color-red !important;
+    }
+
+    &orange {
+        color: $color-orange !important;
+    }
+
+    &purple {
+        color: $color-purple !important;
+    }
+
+    &green {
+        color: $color-green !important;
+    }
+
+    &blue {
+        color: $color-blue !important;
+    }
+
+    &light-red {
+        color: $color-light-red !important;
+    }
+}
+
+.bg- {
+    &red {
+        background-color: $color-red !important;
+    }
+
+    &orange {
+        background-color: $color-orange !important;
+    }
+
+    &purple {
+        background-color: $color-purple !important;
+    }
+
+    &green {
+        background-color: $color-green !important;
+    }
+
+    &blue {
+        background-color: $color-blue !important;
+    }
+
+    &light-red {
+        background-color: $color-light-red !important;
+    }
+}
+
+// Dropdown
+.dropdown {
+    text-transform: uppercase !important;
+    button:nth-child(1) {
+        background: #313848 !important;
+        border-radius: 8px;
+        border: 0 !important;
+        min-width: 200px;
+        text-align: left;
+        height: 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-transform: uppercase !important;
+    }
+
+    &-menu {
+        min-width: 200px !important;
+    }
+}
+
+.btn- {
+    &primary {
+        background: #7b7fda !important;
+        border-radius: 8px !important;
+        color: #ffffff !important;
+        height: 40px;
+    }
+}
+
+.space-letters- {
+    &sm {
+        letter-spacing: 3px;
+    }
+}
+
+// Carousel
+.slick-slider {
+    height: 320px;
+
+    .carousel-item {
+        border-radius: 15px;
+        height: 100%;
+        width: calc(100% - 30px) !important;
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    .slick-dots li {
+        width: unset;
+        padding-top: 40px;
+
+        &.slick-active {
+            button {
+                opacity: 1;
+            }
+        }
+
+        button {
+            background-color: #313848;
+            opacity: 0.3;
+            height: 4px;
+            border-radius: 5px;
+            width: 50px;
+            margin: 0 10px;
+            padding: 0;
+        }
+    }
 }

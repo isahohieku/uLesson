@@ -5,19 +5,21 @@ const webpack = require("webpack");
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 5000;
 
 module.exports = {
     mode: isDevelopment ? "development" : "production",
     entry: "./src/index.tsx",
     devServer: {
         hot: true,
-        port
+        port,
+        historyApiFallback: true,
     },
     target: "web",
     output: {
         filename: "bundle.[hash].js",
         path: path.resolve(__dirname, "dist"),
+        publicPath: '/',
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -44,8 +46,10 @@ module.exports = {
             '@hocs': path.resolve(__dirname, 'src', 'hocs'),
             '@pages': path.resolve(__dirname, 'src', 'pages'),
             '@utils': path.resolve(__dirname, 'src', 'utils'),
+            '@helpers': path.resolve(__dirname, 'src', 'helpers'),
+            '@types': path.resolve(__dirname, 'src', 'types'),
             '@assets': path.resolve(__dirname, 'src', 'assets'),
-            '@assets/svg': path.resolve(__dirname, 'src', 'assets/svg'),
+            '@assets/svg': path.resolve(__dirname, 'src', 'assets', 'svg'),
         }
     },
     module: {
@@ -63,19 +67,20 @@ module.exports = {
             {
                 test: /\.svg$/,
                 use: ['@svgr/webpack'],
-              },
+            },
             {
-                test: /\.png|jpg|gif$/,
+                test: /\.png|jpg|gif|eot|woff|woff2|ttf$/,
                 use: ["file-loader"],
             },
             {
                 test: /\.s[ac]ss$/i,
                 use: [
-                  "style-loader",
-                  "css-loader",
-                  "sass-loader",
+                    "style-loader",
+                    "css-loader",
+                    "sass-loader",
                 ],
-              },
+            },
+            // { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }
         ],
     },
 };

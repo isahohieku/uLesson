@@ -1,12 +1,13 @@
 import { Body, Header, NothingHereWrapper } from './styled';
-import NothingImage from '@assets/svg/empty-promoted.svg';
 
 interface Props {
     header: string;
     body: string;
+    NothingImage: any;
 }
 
-const NothingHere = ({ header, body }: Props) => {
+const NothingHere = ({ header, body, NothingImage }: Props) => {
+    console.log(typeof NothingImage);
     return (
         <NothingHereWrapper>
             <NothingImage />

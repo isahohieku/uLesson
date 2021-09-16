@@ -8,6 +8,6 @@ export const Wrapper = styled.div`
     top: 0;
     background-repeat: no-repeat;
     background-position: top right;
-    min-height: 400px;
+    min-height: 100vh;
     padding-top: 100px;
 `;

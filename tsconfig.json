@@ -35,8 +35,8 @@
             "@services/*": [
                 "src/services/*"
             ],
-            "@helpers/*": [
-                "src/helpers/*"
+            "@helpers": [
+                "src/helpers"
             ],
             "@context": [
                 "src/context"
@@ -62,8 +62,11 @@
             "@utils/*": [
                 "src/utils/*"
             ],
-            "@assets/svg/*": [
-                "src/assets/svg/*"
+            "@assets": [
+                "src/assets"
+            ],
+            "@assets/*": [
+                "src/assets/*"
             ],
         }
     },
