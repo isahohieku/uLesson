@@ -10,6 +10,7 @@ import Timer from '@assets/svg/timer.svg';
 import User from '@assets/svg/user.svg';
 import HourGlass from '@assets/svg/hour-glass.svg';
 import NothingImage from '@assets/svg/empty-promoted.svg';
+import Oval from '@assets/img/oval.png';
 import { LessonsCardGrid } from '@styles/shared/grids';
 import { HomeCard, CardMeta, LabelledIcon } from '@styles/shared/detailed-card';
 import { ImageCard } from '@styles/shared/image-card';
@@ -70,7 +71,7 @@ const Home = () => {
         getAllULessons();
     }, []);
 
-    return (<Wrapper>
+    return (<Wrapper backgroundImage={Oval} position="top right">
 
         <Container>
             <Row>

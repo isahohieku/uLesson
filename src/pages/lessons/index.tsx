@@ -5,6 +5,7 @@ import NothingImage from '@assets/svg/empty-lessons.svg';
 import Calendar from '@assets/svg/calendar-white.svg';
 import WeirdVector from '@assets/svg/weird-vector.svg';
 import Timer from '@assets/svg/timer.svg';
+import Paw from '@assets/img/paw.png';
 import User from '@assets/svg/user.svg';
 import HourGlass from '@assets/svg/hour-glass.svg';
 import Arrow from '@assets/svg/arrow.svg';
@@ -48,7 +49,7 @@ const Lessons = () => {
         getAllUserLessons();
     }, []);
 
-    return (<Wrapper>
+    return (<Wrapper backgroundImage={Paw} position="bottom right">
         <Container>
             <Row>
                 <Col>
