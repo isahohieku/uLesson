@@ -52,19 +52,19 @@ export const CarouselCardMeta = styled.div`
     }
 
     @media(max-width:800px) {
+        left: 10px;
+
         h5 {
-            font-size: 14px;
+            font-size: 12px;
         }
-        svg {
-            path, circle {
-                stroke: white !important;
-            }
+
+        p {
+            font-size: 12px
         }
 
         span {
             height: 4px;
             width: 4px;
-            border-radius: 50%;
         }
     }
 `;

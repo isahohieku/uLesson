@@ -23,4 +23,10 @@ export const ImageCard = styled.div<Props>`
         left: ${({ size }) => size === 'sm' ? '9px' : '20px'};
         bottom: ${({ size }) => size === 'sm' ? '5px' : '20px'};
     }
+
+    @media(max-width:800px) {
+        p {
+            font-size: 12px
+        }
+    }
 `;

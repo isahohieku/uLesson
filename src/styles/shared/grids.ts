@@ -13,7 +13,9 @@ export const LessonsCardGrid = styled.div<Props>`
     column-gap: ${(props) => props.columnGap};
 
     @media(max-width:850px){
-        display: none;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        row-gap: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
 `;

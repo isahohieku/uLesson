@@ -13,7 +13,7 @@ import NothingImage from '@assets/svg/empty-promoted.svg';
 import { LessonsCardGrid } from '@styles/shared/grids';
 import { HomeCard, CardMeta, LabelledIcon } from '@styles/shared/detailed-card';
 import { ImageCard } from '@styles/shared/image-card';
-import { colors, lessonEngagementStatuses, lessonStatuses, LessonStatusesIcons } from '@types';
+import { lessonEngagementStatuses, lessonStatuses, LessonStatusesIcons } from '@types';
 import { LessonStatus } from '@components/CarouselCard';
 import { getRandomColor } from '@helpers';
 import { useStateValue } from '@context';
@@ -81,7 +81,7 @@ const Home = () => {
                     {(!promotedLessonsLoading && promotedLessonsFallback.length > 0)
                         && <UCarousel data={promotedLessonsFallback} />}
 
-                    <div className="mt-5 pt-5">
+                    <div className="mt-3 mt-md-5 mb-4 mb-md-0 pt-0 pt-md-5">
                         <FlexBox justifyContent="space-between" alignItems="center">
                             <Dropdown className="border-0">
                                 <Dropdown.Toggle className="space-letters-sm text-sm">
@@ -96,7 +96,7 @@ const Home = () => {
                             </Dropdown>
 
                             <a href="/lessons"
-                                className="btn btn-primary text-uppercase border-0 d-flex align-items-center space-letters-sm text-sm">
+                                className="btn btn-primary text-uppercase border-0 mt-3 mt-md-0 d-flex align-items-center space-letters-sm text-sm">
                                 <Calendar className="mr-2" /> view my lessons
                             </a>
                         </FlexBox>

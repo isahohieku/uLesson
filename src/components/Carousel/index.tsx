@@ -19,7 +19,7 @@ const UCarousel = ({ data = [] }) => {
         centerPadding: "150px",
         slidesToShow: 1,
         speed: 500,
-        autoplay: true,
+        autoplay: false,
         responsive: [
             {
                 breakpoint: 600,
@@ -38,35 +38,32 @@ const UCarousel = ({ data = [] }) => {
                 {data.map(({
                     id,
                     image_url,
-                    subject: {
-                        name: subject
-                    },
                     topic,
                     status,
                     tutor: {
                         firstname,
                         lastname
                     }
-                }) => <div className="overflow-hidden carousel-item" >
+                }) => <div className="overflow-hidden carousel-item" key={id}>
                     <CarouselCard image={image_url}
                         className="mx-auto">
                         <CarouselCardMeta>
-                            {status === lessonStatuses.upcoming && <LessonStatus color="dark" className="mb-3">
+                            {status === lessonStatuses.upcoming && <LessonStatus color="dark" className="mb-2 md-md-3">
                                 <LessonStatusesIcons.Upcoming className="text-white" />
                                 <p className="text-white text-uppercase font-weight-bold mb-0 ml-1">{lessonStatuses[status]}</p>
                             </LessonStatus>}
-                            {status === lessonStatuses.live && <LessonStatus color="red" className="mb-3">
+                            {status === lessonStatuses.live && <LessonStatus color="red" className="mb-2 md-md-3">
                                 <LessonStatusesIcons.Live color="white" size="9px" className="text-white" />
                                 <p className="text-white text-uppercase font-weight-bold mb-0 ml-1">{lessonStatuses[status]}</p>
                             </LessonStatus>}
-                            {status === lessonStatuses.replay && <LessonStatus color="orange" className="mb-3">
+                            {status === lessonStatuses.replay && <LessonStatus color="orange" className="mb-2 md-md-3">
                                 <LessonStatusesIcons.Replay color={hexColors.white} size={6} className="text-white" />
                                 <p className="text-white text-uppercase font-weight-bold mb-0 ml-1">{lessonStatuses[status]}</p>
                             </LessonStatus>}
                             <h5 className="font-weight-bold text-white">{topic}</h5>
                             <LabelledIcon className="text-white">
                                 <Timer /> <p>Started at 1:30 PM</p>
-                                <span className="d-inline-block ml-3 mr-1 bg-white"></span>
+                                <span className="d-inline-block ml-1 ml-md-3 mr-md-1 mr-0 bg-white"></span>
                                 <p>{firstname} {lastname}</p>
                             </LabelledIcon>
                         </CarouselCardMeta>
