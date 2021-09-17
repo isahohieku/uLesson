@@ -14,6 +14,7 @@ export const ImageCard = styled.div<Props>`
     background: url(${({ image }) => image});
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
     position: relative;
     border-radius: ${({ borderRadius }) => borderRadius ? borderRadius : '0'};
     overflow: ${({ borderRadius }) => borderRadius ? 'hidden' : 'visible'};

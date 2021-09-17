@@ -28,6 +28,7 @@ export const CarouselCard = styled.div<Props>`
     background: url(${({ image }) => image});
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
 `;
 
 export const CarouselCardMeta = styled.div`
