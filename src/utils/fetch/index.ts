@@ -2,7 +2,7 @@ import _axios from 'axios';
 import axiosRetry from 'axios-retry';
 
 const axios = _axios.create({
-  baseURL: 'https://cors.bridged.cc/https://mock-live-lessons.herokuapp.com/api/v1/',
+  baseURL: 'https://mock-live-lessons.herokuapp.com/api/v1/',
   headers: {
     'Content-Type': 'application/json',
   }

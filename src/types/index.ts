@@ -39,6 +39,12 @@ export enum lessonStatuses {
     replay = 'replay',
 }
 
+export enum lessonEngagementStatuses {
+    live = 'Started',
+    upcoming = 'Today',
+    replay = 'Available',
+}
+
 export const LessonStatusesIcons = {
     Live: LiveIcon,
     Upcoming: Calendar,

@@ -8,7 +8,7 @@ import { LabelledIcon } from "@styles/shared/detailed-card";
 import { lessonStatuses, LessonStatusesIcons } from "@types";
 import { hexColors } from "@styles/shared/colors";
 
-const UCarousel = () => {
+const UCarousel = ({ data = [] }) => {
     const sliderRef = useRef<Slider>(null);
     const settings: Settings = {
         className: "center",
@@ -35,48 +35,43 @@ const UCarousel = () => {
     return (<>
         <div className="position-relative">
             <Slider ref={sliderRef} {...settings}>
-                <div className="overflow-hidden carousel-item">
-                    <CarouselCard image="https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png"
+                {data.map(({
+                    id,
+                    image_url,
+                    subject: {
+                        name: subject
+                    },
+                    topic,
+                    status,
+                    tutor: {
+                        firstname,
+                        lastname
+                    }
+                }) => <div className="overflow-hidden carousel-item" >
+                    <CarouselCard image={image_url}
                         className="mx-auto">
                         <CarouselCardMeta>
-                            <LessonStatus color="red" className="mb-3">
-                                <LessonStatusesIcons.Live size="9px" color="white" />
-                                <p className="text-white text-uppercase font-weight-bold mb-0 ml-1">{lessonStatuses.live}</p>
-                            </LessonStatus>
-                            <h5 className="font-weight-bold text-white">Materials - Metals & Non Metals</h5>
+                            {status === lessonStatuses.upcoming && <LessonStatus color="dark" className="mb-3">
+                                <LessonStatusesIcons.Upcoming className="text-white" />
+                                <p className="text-white text-uppercase font-weight-bold mb-0 ml-1">{lessonStatuses[status]}</p>
+                            </LessonStatus>}
+                            {status === lessonStatuses.live && <LessonStatus color="red" className="mb-3">
+                                <LessonStatusesIcons.Live color="white" size="9px" className="text-white" />
+                                <p className="text-white text-uppercase font-weight-bold mb-0 ml-1">{lessonStatuses[status]}</p>
+                            </LessonStatus>}
+                            {status === lessonStatuses.replay && <LessonStatus color="orange" className="mb-3">
+                                <LessonStatusesIcons.Replay color={hexColors.white} size={6} className="text-white" />
+                                <p className="text-white text-uppercase font-weight-bold mb-0 ml-1">{lessonStatuses[status]}</p>
+                            </LessonStatus>}
+                            <h5 className="font-weight-bold text-white">{topic}</h5>
                             <LabelledIcon className="text-white">
                                 <Timer /> <p>Started at 1:30 PM</p>
                                 <span className="d-inline-block ml-3 mr-1 bg-white"></span>
-                                <p>Gabriella Adeboye</p>
+                                <p>{firstname} {lastname}</p>
                             </LabelledIcon>
                         </CarouselCardMeta>
                     </CarouselCard>
-                </div>
-                <div className="overflow-hidden carousel-item">
-                    <div className="mx-auto">
-                        <img src="https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png" alt="A cat" />
-                    </div>
-                </div>
-                <div className="overflow-hidden carousel-item">
-                    <div className="mx-auto">
-                        <img src="https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png" alt="A cat" />
-                    </div>
-                </div>
-                <div className="overflow-hidden carousel-item">
-                    <div className="mx-auto">
-                        <img src="https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png" alt="A cat" />
-                    </div>
-                </div>
-                <div className="overflow-hidden carousel-item">
-                    <div className="mx-auto">
-                        <img src="https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png" alt="A cat" />
-                    </div>
-                </div>
-                <div className="overflow-hidden carousel-item">
-                    <div className="mx-auto">
-                        <img src="https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png" alt="A cat" />
-                    </div>
-                </div>
+                </div>)}
             </Slider>
 
             {/* Right Nav Buttons */}

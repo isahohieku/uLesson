@@ -24,6 +24,8 @@ import { hexColors } from '@styles/shared/colors';
 
 const Home = () => {
     const [activeSection, setActiveSection] = useState('');
+    const [allLessonsFallback, setAllLessonFallback] = useState([]);
+    const [promotedLessonsFallback, setPromotedLessonsFallback] = useState([]);
 
     const { state: {
         promotedLessons,
@@ -46,27 +48,27 @@ const Home = () => {
 
     useEffect(() => {
         const getAllPromotedLessons = async () => {
-            await getPromotedLessons(
+            const promoted = await getPromotedLessons(
                 setPromotedLessonsLoading,
                 setPromotedLessons,
                 clearPromotedLessons
             );
+            setPromotedLessonsFallback(promoted);
         };
 
         const getAllULessons = async () => {
-            await getAllLessons(
+            const all = await getAllLessons(
                 setAllLessonsLoading,
                 setAllLessons,
                 clearAllLessons
             );
+
+            setAllLessonFallback(all);
         };
 
         getAllPromotedLessons();
         getAllULessons();
     }, []);
-
-    // console.log('allLessons)', allLessons);
-    // console.log('state', promotedLessonsLoading);
 
     return (<Wrapper>
 
@@ -76,8 +78,8 @@ const Home = () => {
                     <h3 className="font-weight-bold mb-5">Live Lessons</h3>
 
                     {/* Carousel */}
-                    {(!promotedLessonsLoading && promotedLessons.length > 0)
-                        && <UCarousel data={promotedLessons} />}
+                    {(!promotedLessonsLoading && promotedLessonsFallback.length > 0)
+                        && <UCarousel data={promotedLessonsFallback} />}
 
                     <div className="mt-5 pt-5">
                         <FlexBox justifyContent="space-between" alignItems="center">
@@ -101,14 +103,14 @@ const Home = () => {
                     </div>
 
                     {/* No Record found */}
-                    {(!allLessonsLoading && allLessons.length < 0) && <NothingHere
+                    {(!allLessonsLoading && allLessonsFallback.length < 0) && <NothingHere
                         NothingImage={NothingImage}
                         header="Oops! Try again later"
                         body="There are no live lessons for this subject at the moment"
                     />}
 
                     <LessonsCardGrid columns={3} rowGap="40px" columnGap="30px" className="mt-3">
-                        {allLessons.map(({
+                        {allLessonsFallback.map(({
                             id,
                             image_url,
                             subject: {
@@ -124,15 +126,18 @@ const Home = () => {
                                 <ImageCard
                                     image={image_url}
                                     height="160px">
-                                    <LessonStatus color="dark" className="lesson-status">
-                                        {status === lessonStatuses.upcoming && <LessonStatusesIcons.Upcoming className="text-white" />}
-                                        {status === lessonStatuses.live && <LessonStatusesIcons.Live
-                                            color={hexColors.white} size="10px" className="text-white" />}
-                                        {status === lessonStatuses.replay && <LessonStatusesIcons.Replay
-                                            color={hexColors.white} size={9} className="text-white" />}
-                                        {status === lessonStatuses.upcoming && <LessonStatusesIcons.Upcoming className="text-white" />}
+                                    {status === lessonStatuses.upcoming && <LessonStatus color="dark" className="lesson-status">
+                                        <LessonStatusesIcons.Upcoming className="text-white" />
                                         <p className="text-white text-uppercase font-weight-bold mb-0 ml-1">{lessonStatuses[status]}</p>
-                                    </LessonStatus>
+                                    </LessonStatus>}
+                                    {status === lessonStatuses.live && <LessonStatus color="red" className="lesson-status">
+                                        <LessonStatusesIcons.Live color="white" size="10px" className="text-white" />
+                                        <p className="text-white text-uppercase font-weight-bold mb-0 ml-1">{lessonStatuses[status]}</p>
+                                    </LessonStatus>}
+                                    {status === lessonStatuses.replay && <LessonStatus color="orange" className="lesson-status">
+                                        <LessonStatusesIcons.Replay color={hexColors.white} size={6} className="text-white" />
+                                        <p className="text-white text-uppercase font-weight-bold mb-0 ml-1">{lessonStatuses[status]}</p>
+                                    </LessonStatus>}
                                 </ImageCard>
 
                                 <CardMeta>

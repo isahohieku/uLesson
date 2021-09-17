@@ -11,7 +11,7 @@ import Arrow from '@assets/svg/arrow.svg';
 import { FlexBox } from "@styles/shared/flexbox";
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { LessonStatusesIcons, lessonStatuses } from "@types";
+import { LessonStatusesIcons, lessonStatuses, lessonEngagementStatuses } from "@types";
 import axios from "axios";
 import { LessonsCardGrid } from "@styles/shared/grids";
 import { CardMeta, LabelledIcon, LessonCard } from "@styles/shared/detailed-card";
@@ -22,10 +22,12 @@ import { AddLiveButton } from "./styled";
 import { getUserLessons } from "@services/lessons";
 import { useStateValue } from "@context";
 import getUserLessonsActions from "@context/actions/user_lessons";
+import { hexColors } from "@styles/shared/colors";
 
 const Lessons = () => {
     const history = useHistory();
     const [activeSection, setActiveSection] = useState('');
+    const [userLessonsFallback, setUserLessonFallback] = useState([]);
 
     const { state: { userLessons, userLessonsLoading }, dispatch } = useStateValue();
 
@@ -37,11 +39,13 @@ const Lessons = () => {
 
     useEffect(() => {
         const getAllUserLessons = async () => {
-            await getUserLessons(
+            const usersLessons = await getUserLessons(
                 setUserLessonsLoading,
                 setUserLessons,
                 clearUserLessons
             );
+
+            setUserLessonFallback(usersLessons);
         };
 
         getAllUserLessons();
@@ -81,76 +85,50 @@ const Lessons = () => {
                         </FlexBox>
                     </div>
 
-                    <LessonsCardGrid columns={2} rowGap="40px" columnGap="30px" className="mt-5">
-                        <LessonCard>
+                    <LessonsCardGrid columns={2} rowGap="40px" columnGap="30px" className="mt-5 pb-5">
+                        {userLessonsFallback.map(({
+                            id,
+                            image_url,
+                            subject: {
+                                name: subject
+                            },
+                            topic,
+                            status,
+                            tutor: {
+                                firstname,
+                                lastname
+                            }
+                        }) => <LessonCard key={id}>
                             <ImageCard
-                                image="https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png"
+                                image={image_url}
                                 height="100px"
                                 width="40%"
                                 borderRadius="9px"
                                 size="sm">
-                                <LessonStatus color="orange" size="sm" className="mb-1 lesson-status">
-                                    <LessonStatusesIcons.Replay color="white" size={4} className="text-white" />
-                                    <p className="text-white text-uppercase font-weight-bold mb-0 ml-1">{lessonStatuses.replay}</p>
-                                </LessonStatus>
+                                {status === lessonStatuses.upcoming && <LessonStatus color="dark" size="sm" className="lesson-status">
+                                        <LessonStatusesIcons.Upcoming className="text-white" />
+                                        <p className="text-white text-uppercase font-weight-bold mb-0 ml-1">{lessonStatuses[status]}</p>
+                                    </LessonStatus>}
+                                    {status === lessonStatuses.live && <LessonStatus color="red" size="sm" className="lesson-status">
+                                        <LessonStatusesIcons.Live color="white" size="10px" className="text-white" />
+                                        <p className="text-white text-uppercase font-weight-bold mb-0 ml-1">{lessonStatuses[status]}</p>
+                                    </LessonStatus>}
+                                    {status === lessonStatuses.replay && <LessonStatus color="orange" size="sm" className="lesson-status">
+                                        <LessonStatusesIcons.Replay color={hexColors.white} size={4} className="text-white" />
+                                        <p className="text-white text-uppercase font-weight-bold mb-0 ml-1">{lessonStatuses[status]}</p>
+                                    </LessonStatus>}
                             </ImageCard>
                             <CardMeta className="pt-0">
-                                <p className={`text-${getRandomColor()}`}>Physics</p>
-                                <h5>Materials - Metallic & Non Metallic Properties</h5>
+                                <p className={`text-${getRandomColor()}`}>{subject}</p>
+                                <h5>{topic}</h5>
                                 <LabelledIcon>
-                                    <Timer /> <p>Started at 1:30 PM</p>
+                                    <Timer /> <p>{lessonEngagementStatuses[status]} at 1:30 PM</p>
                                 </LabelledIcon>
                                 <LabelledIcon>
-                                    <User /> <p>Gabriella Adeboye</p>
-                                </LabelledIcon>
-                            </CardMeta>
-                        </LessonCard>
-                        <LessonCard>
-                            <ImageCard
-                                image="https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png"
-                                height="100px"
-                                width="40%"
-                                borderRadius="9px"
-                                size="sm">
-                                <LessonStatus color="dark" size="sm" className="mb-1 lesson-status">
-                                    <LessonStatusesIcons.Upcoming color="white" size="6px" className="text-white" />
-                                    <p className="text-white text-uppercase font-weight-bold mb-0 ml-1">{lessonStatuses.upcoming}</p>
-                                </LessonStatus>
-                            </ImageCard>
-                            <CardMeta className="pt-0">
-                                <p className={`text-${getRandomColor()}`}>Physics</p>
-                                <h5>Materials - Metallic & Non Metallic Properties</h5>
-                                <LabelledIcon>
-                                    <Timer /> <p>Started at 1:30 PM</p>
-                                </LabelledIcon>
-                                <LabelledIcon>
-                                    <User /> <p>Gabriella Adeboye</p>
+                                    <User /> <p>{firstname} {lastname}</p>
                                 </LabelledIcon>
                             </CardMeta>
-                        </LessonCard>
-                        <LessonCard>
-                            <ImageCard
-                                image="https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png"
-                                height="100px"
-                                width="40%"
-                                borderRadius="9px"
-                                size="sm">
-                                <LessonStatus color="red" size="sm" className="mb-1 lesson-status">
-                                    <LessonStatusesIcons.Live color="white" size="6px" className="text-white" />
-                                    <p className="text-white text-uppercase font-weight-bold mb-0 ml-1">{lessonStatuses.live}</p>
-                                </LessonStatus>
-                            </ImageCard>
-                            <CardMeta className="pt-0">
-                                <p className={`text-${getRandomColor()}`}>Physics</p>
-                                <h5>Materials - Metallic & Non Metallic Properties</h5>
-                                <LabelledIcon>
-                                    <Timer /> <p>Started at 1:30 PM</p>
-                                </LabelledIcon>
-                                <LabelledIcon>
-                                    <User /> <p>Gabriella Adeboye</p>
-                                </LabelledIcon>
-                            </CardMeta>
-                        </LessonCard>
+                        </LessonCard>)}
                     </LessonsCardGrid>
                     {/* No Record found */}
                     {/* <NothingHere
