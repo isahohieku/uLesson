@@ -14,6 +14,7 @@ export const HomeCard = styled.div`
 
 export const CardMeta = styled.div`
     padding: 12px 20px;
+    width: 60%;
 
     p:first-of-type {
         font-size: 12px;
