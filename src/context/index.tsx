@@ -13,8 +13,6 @@ const StateProvider = ({ children }: StateProviderProps): JSX.Element => {
 
   const dispatch = useCallback(asyncer(dispatchBase, state), []);
 
-  console.log('state', state);
-
   return (
     <StateContext.Provider value={{ state, dispatch }}>
       {children}
