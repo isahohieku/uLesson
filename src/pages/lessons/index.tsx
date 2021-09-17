@@ -73,7 +73,7 @@ const Lessons = () => {
 
 
                             <AddLiveButton type="button"
-                                className="btn btn-primary text-uppercase overflow-hidden font-weight-bold border-0 d-flex align-items-center px-5 space-letters-sm text-sm">
+                                className="btn btn-primary mt-3 mt-md-0 text-uppercase overflow-hidden font-weight-bold border-0 d-flex align-items-center px-5 space-letters-sm text-sm">
                                 add live lessons
                                 <span />
                                 <WeirdVector />
@@ -129,11 +129,11 @@ const Lessons = () => {
                             </LessonCard>)}
                     </LessonsCardGrid>
                     {/* No Record found */}
-                    {/* <NothingHere
+                    {(!userLessonsLoading && userLessonsFallback.length < 0) && <NothingHere
                         header="Oops! Nothing here"
                         body="Looks like you have not added a lesson for this subject"
                         NothingImage={NothingImage}
-                    /> */}
+                    />}
                 </Col>
             </Row>
         </Container>

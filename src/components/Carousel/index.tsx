@@ -19,7 +19,7 @@ const UCarousel = ({ data = [] }) => {
         centerPadding: "150px",
         slidesToShow: 1,
         speed: 500,
-        autoplay: false,
+        autoplay: true,
         responsive: [
             {
                 breakpoint: 600,
