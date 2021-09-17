@@ -1,3 +1,4 @@
+import { APIResponseData } from '@types';
 import { Api } from '@utils/fetch';
 import Toast, { messageStatus } from '@utils/toast';
 
@@ -5,7 +6,7 @@ export const getAllLessons = async (setLoading, setData, clearData) => {
     try {
         setLoading(true);
         clearData();
-        const { data } = await Api.get('lessons');
+        const { data }: APIResponseData = await Api.get('lessons');
         setData(data);
         return data;
     } catch (error) {
@@ -19,7 +20,7 @@ export const getUserLessons = async (setLoading, setData, clearData) => {
     try {
         setLoading(true);
         clearData();
-        const { data } = await Api.get('lessons/me');
+        const { data }: APIResponseData = await Api.get('lessons/me');
         setData(data);
         return data;
     } catch (error) {

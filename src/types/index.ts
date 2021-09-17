@@ -50,3 +50,29 @@ export const LessonStatusesIcons = {
     Upcoming: Calendar,
     Replay: PlayIcon,
 };
+
+export interface ISubject {
+    name: string;
+}
+
+export interface ITutor {
+    firstname: string;
+    lastname: string;
+}
+
+export interface ILesson {
+    createdAt: string;
+    expires_at: string;
+    id: string;
+    image_url: string;
+    start_at: string;
+    status: lessonStatuses;
+    subject: ISubject;
+    topic: string;
+    tutor: ITutor;
+}
+
+export interface APIResponseData {
+    data: ILesson[];
+    success: boolean;
+}

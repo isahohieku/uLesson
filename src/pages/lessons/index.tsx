@@ -10,7 +10,7 @@ import HourGlass from '@assets/svg/hour-glass.svg';
 import Arrow from '@assets/svg/arrow.svg';
 import { FlexBox } from "@styles/shared/flexbox";
 import React, { useEffect, useState } from 'react';
-import { LessonStatusesIcons, lessonStatuses, lessonEngagementStatuses } from "@types";
+import { LessonStatusesIcons, lessonStatuses, lessonEngagementStatuses, ILesson } from "@types";
 import { LessonsCardGrid } from "@styles/shared/grids";
 import { CardMeta, LabelledIcon, LessonCard } from "@styles/shared/detailed-card";
 import { ImageCard } from "@styles/shared/image-card";
@@ -36,7 +36,7 @@ const Lessons = () => {
 
     useEffect(() => {
         const getAllUserLessons = async () => {
-            const usersLessons = await getUserLessons(
+            const usersLessons: ILesson[] = await getUserLessons(
                 setUserLessonsLoading,
                 setUserLessons,
                 clearUserLessons

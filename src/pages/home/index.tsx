@@ -13,7 +13,7 @@ import NothingImage from '@assets/svg/empty-promoted.svg';
 import { LessonsCardGrid } from '@styles/shared/grids';
 import { HomeCard, CardMeta, LabelledIcon } from '@styles/shared/detailed-card';
 import { ImageCard } from '@styles/shared/image-card';
-import { lessonEngagementStatuses, lessonStatuses, LessonStatusesIcons } from '@types';
+import { ILesson, lessonEngagementStatuses, lessonStatuses, LessonStatusesIcons } from '@types';
 import { LessonStatus } from '@components/CarouselCard';
 import { getRandomColor } from '@helpers';
 import { useStateValue } from '@context';
@@ -48,7 +48,7 @@ const Home = () => {
 
     useEffect(() => {
         const getAllPromotedLessons = async () => {
-            const promoted = await getPromotedLessons(
+            const promoted: ILesson[] = await getPromotedLessons(
                 setPromotedLessonsLoading,
                 setPromotedLessons,
                 clearPromotedLessons
@@ -57,7 +57,7 @@ const Home = () => {
         };
 
         const getAllULessons = async () => {
-            const all = await getAllLessons(
+            const all: ILesson[] = await getAllLessons(
                 setAllLessonsLoading,
                 setAllLessons,
                 clearAllLessons
