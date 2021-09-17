@@ -10,9 +10,7 @@ import HourGlass from '@assets/svg/hour-glass.svg';
 import Arrow from '@assets/svg/arrow.svg';
 import { FlexBox } from "@styles/shared/flexbox";
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { LessonStatusesIcons, lessonStatuses, lessonEngagementStatuses } from "@types";
-import axios from "axios";
 import { LessonsCardGrid } from "@styles/shared/grids";
 import { CardMeta, LabelledIcon, LessonCard } from "@styles/shared/detailed-card";
 import { ImageCard } from "@styles/shared/image-card";
@@ -25,7 +23,6 @@ import getUserLessonsActions from "@context/actions/user_lessons";
 import { hexColors } from "@styles/shared/colors";
 
 const Lessons = () => {
-    const history = useHistory();
     const [activeSection, setActiveSection] = useState('');
     const [userLessonsFallback, setUserLessonFallback] = useState([]);
 
@@ -55,9 +52,8 @@ const Lessons = () => {
         <Container>
             <Row>
                 <Col>
-
                     <div className="d-flex align-items-center mb-5">
-                        <button type="button" className="btn" onClick={() => history.goBack()}><Arrow /></button>
+                        <a href="/" className="btn"><Arrow /></a>
                         <h3 className="font-weight-bold ml-3 mb-0">My Lessons</h3>
                     </div>
 
@@ -99,13 +95,13 @@ const Lessons = () => {
                                 lastname
                             }
                         }) => <LessonCard key={id}>
-                            <ImageCard
-                                image={image_url}
-                                height="100px"
-                                width="40%"
-                                borderRadius="9px"
-                                size="sm">
-                                {status === lessonStatuses.upcoming && <LessonStatus color="dark" size="sm" className="lesson-status">
+                                <ImageCard
+                                    image={image_url}
+                                    height="100px"
+                                    width="40%"
+                                    borderRadius="9px"
+                                    size="sm">
+                                    {status === lessonStatuses.upcoming && <LessonStatus color="dark" size="sm" className="lesson-status">
                                         <LessonStatusesIcons.Upcoming className="text-white" />
                                         <p className="text-white text-uppercase font-weight-bold mb-0 ml-1">{lessonStatuses[status]}</p>
                                     </LessonStatus>}
@@ -117,18 +113,20 @@ const Lessons = () => {
                                         <LessonStatusesIcons.Replay color={hexColors.white} size={4} className="text-white" />
                                         <p className="text-white text-uppercase font-weight-bold mb-0 ml-1">{lessonStatuses[status]}</p>
                                     </LessonStatus>}
-                            </ImageCard>
-                            <CardMeta className="pt-0">
-                                <p className={`text-${getRandomColor()}`}>{subject}</p>
-                                <h5>{topic}</h5>
-                                <LabelledIcon>
-                                    <Timer /> <p>{lessonEngagementStatuses[status]} at 1:30 PM</p>
-                                </LabelledIcon>
-                                <LabelledIcon>
-                                    <User /> <p>{firstname} {lastname}</p>
-                                </LabelledIcon>
-                            </CardMeta>
-                        </LessonCard>)}
+                                </ImageCard>
+                                <CardMeta className="pt-0">
+                                    <p className={`text-${getRandomColor()}`}>{subject}</p>
+                                    <h5>{topic}</h5>
+                                    <LabelledIcon>
+                                        {[lessonStatuses.live, lessonStatuses.upcoming].includes(status) && <Timer />}
+                                        {status === lessonStatuses.replay && <HourGlass />}
+                                        <p>{lessonEngagementStatuses[status]} at 1:30 PM</p>
+                                    </LabelledIcon>
+                                    <LabelledIcon>
+                                        <User /> <p>{firstname} {lastname}</p>
+                                    </LabelledIcon>
+                                </CardMeta>
+                            </LessonCard>)}
                     </LessonsCardGrid>
                     {/* No Record found */}
                     {/* <NothingHere

@@ -13,7 +13,7 @@ import NothingImage from '@assets/svg/empty-promoted.svg';
 import { LessonsCardGrid } from '@styles/shared/grids';
 import { HomeCard, CardMeta, LabelledIcon } from '@styles/shared/detailed-card';
 import { ImageCard } from '@styles/shared/image-card';
-import { colors, lessonStatuses, LessonStatusesIcons } from '@types';
+import { colors, lessonEngagementStatuses, lessonStatuses, LessonStatusesIcons } from '@types';
 import { LessonStatus } from '@components/CarouselCard';
 import { getRandomColor } from '@helpers';
 import { useStateValue } from '@context';
@@ -144,7 +144,9 @@ const Home = () => {
                                     <p className={`text-${getRandomColor()}`}>{subject}</p>
                                     <h5>{topic}</h5>
                                     <LabelledIcon>
-                                        <Timer /> <p>Started at 1:30 PM</p>
+                                        {[lessonStatuses.live, lessonStatuses.upcoming].includes(status) && <Timer />}
+                                        {status === lessonStatuses.replay && <HourGlass />}
+                                        <p>{lessonEngagementStatuses[status]} at 1:30 PM</p>
                                     </LabelledIcon>
                                     <LabelledIcon>
                                         <User /> <p>{firstname} {lastname}</p>
