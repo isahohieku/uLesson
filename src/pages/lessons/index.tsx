@@ -3,6 +3,7 @@ import { Wrapper } from "@pages/home/styled";
 import { Col, Container, Dropdown, Row } from "react-bootstrap";
 import NothingImage from '@assets/svg/empty-lessons.svg';
 import Calendar from '@assets/svg/calendar-white.svg';
+import WeirdVector from '@assets/svg/weird-vector.svg';
 import Timer from '@assets/svg/timer.svg';
 import User from '@assets/svg/user.svg';
 import HourGlass from '@assets/svg/hour-glass.svg';
@@ -17,25 +18,33 @@ import { CardMeta, LabelledIcon, LessonCard } from "@styles/shared/detailed-card
 import { ImageCard } from "@styles/shared/image-card";
 import { LessonStatus } from "@components/CarouselCard";
 import { getRandomColor } from "@helpers/";
+import { AddLiveButton } from "./styled";
+import { getUserLessons } from "@services/lessons";
+import { useStateValue } from "@context";
+import getUserLessonsActions from "@context/actions/user_lessons";
 
 const Lessons = () => {
     const history = useHistory();
-    const [loading, setLoading] = useState(false);
     const [activeSection, setActiveSection] = useState('');
+
+    const { state: { userLessons, userLessonsLoading }, dispatch } = useStateValue();
+
+    const {
+        setUserLessonsLoading,
+        setUserLessons,
+        clearUserLessons
+    } = getUserLessonsActions(dispatch);
+
     useEffect(() => {
-        const getLiveLessons = async () => {
-            setLoading(true);
-            try {
-                const result = await axios.get('https://mock-live-lessons.herokuapp.com/api/v1/promoted');
-                console.log('result', result);
-            } catch (error) {
-                console.log(error);
-            } finally {
-                setLoading(false);
-            }
+        const getAllUserLessons = async () => {
+            await getUserLessons(
+                setUserLessonsLoading,
+                setUserLessons,
+                clearUserLessons
+            );
         };
 
-        getLiveLessons();
+        getAllUserLessons();
     }, []);
 
     return (<Wrapper>
@@ -62,10 +71,13 @@ const Lessons = () => {
                                 </Dropdown.Menu>
                             </Dropdown>
 
-                            <button type="button"
-                                className="btn btn-primary text-uppercase font-weight-bold border-0 d-flex align-items-center px-5 space-letters-sm text-sm">
+
+                            <AddLiveButton type="button"
+                                className="btn btn-primary text-uppercase overflow-hidden font-weight-bold border-0 d-flex align-items-center px-5 space-letters-sm text-sm">
                                 add live lessons
-                            </button>
+                                <span />
+                                <WeirdVector />
+                            </AddLiveButton>
                         </FlexBox>
                     </div>
 

@@ -1,14 +1,14 @@
 import { BrowserRouter as Router } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
 import Routes from "@routes";
 import '../styles/index.scss';
 
 const App = () => {
     return (
-        <div>
-            <Router>
-                <Routes />
-            </Router>
-        </div>
+        <Router>
+            <ToastContainer />
+            <Routes />
+        </Router>
     );
 };
 export default App;

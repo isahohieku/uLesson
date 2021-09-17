@@ -10,4 +10,8 @@ export const Wrapper = styled.div`
     background-position: top right;
     min-height: 100vh;
     padding-top: 100px;
+
+    @media(max-width:850px) {
+        padding-top: 30px;
+    }
 `;

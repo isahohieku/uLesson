@@ -1,4 +1,3 @@
-export const SET_PROMOTED_LESSONS = 'SET_PROMOTED_LESSONS';
-export const SET_ALL_LESSONS = 'SET_ALL_LESSONS';
-export const SET_USER_LESSONS = 'SET_USER_LESSONS';
-export const CLEAR_PROMOTED_LESSONS = 'CLEAR_PROMOTED_LESSONS';
+export * from '@context/types/promoted_lessons';
+export * from '@context/types/user_lessons';
+export * from '@context/types/all_lessons';

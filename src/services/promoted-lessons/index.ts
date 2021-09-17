@@ -1,3 +1,15 @@
 import { Api } from '@utils/fetch';
+import Toast, { messageStatus } from '@utils/toast';
 
-export const getPromotedLessons = async () => Api.get('promoted');
+export const getPromotedLessons = async (setLoading, setData, clearData) => {
+    try {
+        setLoading(true);
+        clearData();
+        const { data } = await Api.get('promoted');
+        setData(data);
+    } catch (error) {
+        Toast(typeof error === 'string' ? error : error.message, messageStatus.Error);
+    } finally {
+        setLoading(false);
+    }
+};

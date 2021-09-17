@@ -19,7 +19,18 @@ const UCarousel = () => {
         centerPadding: "150px",
         slidesToShow: 1,
         speed: 500,
-        autoplay: true
+        autoplay: true,
+        responsive: [
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    dots: false,
+                    centerPadding: '0px'
+                },
+            }
+        ]
     };
     return (<>
         <div className="position-relative">

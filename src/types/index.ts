@@ -8,9 +8,12 @@ export interface StateAction {
 }
 
 export interface AppState {
-    promotedLessons: [];
-    allLessons: [];
-    userLessons: [];
+    promotedLessons: any[];
+    promotedLessonsLoading: boolean;
+    allLessons: any[];
+    allLessonsLoading: boolean;
+    userLessons: any[];
+    userLessonsLoading: boolean;
 }
 
 export interface AppContext {

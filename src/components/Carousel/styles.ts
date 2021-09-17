@@ -20,4 +20,8 @@ export const NavButton = styled.div<ButtonProps>`
     transform: translateY(-50%) ${(props) => props.placement === 'left' ? 'rotate(180deg)' : ''};
     left: ${(props) => props.placement === 'left' ? '35px' : '' };
     right: ${(props) => props.placement === 'right' ? '35px' : '' };
+
+    @media(max-width:800px) {
+        display: none;
+    }
 `;

@@ -1,41 +1,20 @@
-import { AppState, StateAction } from '@types';
-import { equals, isEmpty } from 'ramda';
-import {
-    SET_PROMOTED_LESSONS,
-    SET_ALL_LESSONS,
-    SET_USER_LESSONS,
-    CLEAR_PROMOTED_LESSONS
-} from '../types';
+import { AppState } from '@types';
+import { combineReducers } from '@utils/context';
+import { allLessonsReducer } from './all_lessons';
+import { promotedReducer } from './promoted_lessons';
+import { userLessonsReducer } from './user_lessons';
 
 export const initialState: AppState = {
     promotedLessons: [],
     allLessons: [],
     userLessons: [],
+    allLessonsLoading: false,
+    userLessonsLoading: false,
+    promotedLessonsLoading: false
 };
 
-export const reducer = (state: AppState, action: StateAction): AppState => {
-    switch (action.type) {
-        case SET_PROMOTED_LESSONS:
-            if (equals(state.promotedLessons, action.payload)) {
-                return state;
-            }
-
-            return {
-                ...state,
-                promotedLessons: {
-                    ...state.promotedLessons,
-                    ...action.payload,
-                },
-            };
-
-        case CLEAR_PROMOTED_LESSONS:
-            if (isEmpty(state.promotedLessons)) {
-                return state;
-            }
-
-            return { ...state, promotedLessons: [] };
-
-        default:
-            return state;
-    }
-};
+export const reducer = combineReducers({
+    allLessonsReducer,
+    promotedReducer,
+    userLessonsReducer,
+});

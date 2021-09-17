@@ -50,6 +50,23 @@ export const CarouselCardMeta = styled.div`
         width: 8px;
         border-radius: 50%;
     }
+
+    @media(max-width:800px) {
+        h5 {
+            font-size: 14px;
+        }
+        svg {
+            path, circle {
+                stroke: white !important;
+            }
+        }
+
+        span {
+            height: 4px;
+            width: 4px;
+            border-radius: 50%;
+        }
+    }
 `;
 
 export const PlayIcon = styled.div<PlayProps>`
