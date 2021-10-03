@@ -8,7 +8,6 @@ export const getAllLessons = async (setLoading, setData, clearData) => {
         clearData();
         const { data }: APIResponseData = await Api.get('lessons');
         setData(data);
-        return data;
     } catch (error) {
         Toast(typeof error === 'string' ? error : error.message, messageStatus.Error);
     } finally {
@@ -22,7 +21,6 @@ export const getUserLessons = async (setLoading, setData, clearData) => {
         clearData();
         const { data }: APIResponseData = await Api.get('lessons/me');
         setData(data);
-        return data;
     } catch (error) {
         Toast(typeof error === 'string' ? error : error.message, messageStatus.Error);
     } finally {

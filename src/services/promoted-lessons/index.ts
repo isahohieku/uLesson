@@ -8,7 +8,6 @@ export const getPromotedLessons = async (setLoading, setData, clearData) => {
         clearData();
         const { data }: APIResponseData = await Api.get('promoted');
         setData(data);
-        return data;
     } catch (error) {
         Toast(typeof error === 'string' ? error : error.message, messageStatus.Error);
     } finally {

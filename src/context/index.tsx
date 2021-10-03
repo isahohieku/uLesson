@@ -4,8 +4,9 @@ import { AppContext, AppState, StateProviderProps } from '@types';
 
 const StateContext = createContext<AppContext>({} as AppContext);
 
-const asyncer = (dispatch: any, state: AppState) => (action: any) =>
+const asyncer = (dispatch: any, state: AppState) => (action: any) => {
   typeof action === 'function' ? action(dispatch, state) : dispatch(action);
+};
 
 const StateProvider = ({ children }: StateProviderProps): JSX.Element => {
 

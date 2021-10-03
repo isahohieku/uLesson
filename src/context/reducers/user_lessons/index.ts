@@ -9,7 +9,7 @@ import {
 export const userLessonsReducer = (state: AppState, action: StateAction): AppState => {
     switch (action.type) {
         case SET_USER_LESSONS:
-            if ((state?.userLessons.length > 0) && equals(state?.userLessons, action.payload)) {
+            if ((state?.userLessons?.length > 0) && equals(state?.userLessons, action.payload)) {
                 return state;
             }
 

@@ -1,16 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Col, Container, Dropdown, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import UCarousel from "@components/Carousel";
 import { getPromotedLessons } from '@services/promoted-lessons';
-import { Wrapper } from "./styled";
-import NothingHere from '@components/NothingHere';
-import { FlexBox } from '@styles/shared/flexbox';
-import Calendar from '@assets/svg/calendar-white.svg';
-import Timer from '@assets/svg/timer.svg';
-import User from '@assets/svg/user.svg';
-import HourGlass from '@assets/svg/hour-glass.svg';
-import NothingImage from '@assets/svg/empty-promoted.svg';
-import Oval from '@assets/img/oval.png';
 import { LessonsCardGrid } from '@styles/shared/grids';
 import { HomeCard, CardMeta, LabelledIcon } from '@styles/shared/detailed-card';
 import { ImageCard } from '@styles/shared/image-card';
@@ -22,11 +14,18 @@ import getPromotedLessonsActions from '@context/actions/promoted_lessons';
 import getAllLessonsActions from '@context/actions/all_lessons';
 import { getAllLessons } from '@services/lessons';
 import { hexColors } from '@styles/shared/colors';
+import NothingHere from '@components/NothingHere';
+import { FlexBox } from '@styles/shared/flexbox';
+import Calendar from '@assets/svg/calendar-white.svg';
+import Timer from '@assets/svg/timer.svg';
+import User from '@assets/svg/user.svg';
+import HourGlass from '@assets/svg/hour-glass.svg';
+import NothingImage from '@assets/svg/empty-promoted.svg';
+import Oval from '@assets/img/oval.png';
+import { Wrapper } from "./styled";
 
 const Home = () => {
     const [activeSection, setActiveSection] = useState('');
-    const [allLessonsFallback, setAllLessonFallback] = useState([]);
-    const [promotedLessonsFallback, setPromotedLessonsFallback] = useState([]);
 
     const { state: {
         promotedLessons,
@@ -49,22 +48,19 @@ const Home = () => {
 
     useEffect(() => {
         const getAllPromotedLessons = async () => {
-            const promoted: ILesson[] = await getPromotedLessons(
+            await getPromotedLessons(
                 setPromotedLessonsLoading,
                 setPromotedLessons,
                 clearPromotedLessons
             );
-            setPromotedLessonsFallback(promoted);
         };
 
         const getAllULessons = async () => {
-            const all: ILesson[] = await getAllLessons(
+            await getAllLessons(
                 setAllLessonsLoading,
                 setAllLessons,
                 clearAllLessons
             );
-
-            setAllLessonFallback(all);
         };
 
         getAllPromotedLessons();
@@ -79,8 +75,8 @@ const Home = () => {
                     <h3 className="font-weight-bold mb-5">Live Lessons</h3>
 
                     {/* Carousel */}
-                    {(!promotedLessonsLoading && promotedLessonsFallback.length > 0)
-                        && <UCarousel data={promotedLessonsFallback} />}
+                    {(!promotedLessonsLoading && promotedLessons.length > 0)
+                        && <UCarousel data={promotedLessons} />}
 
                     <div className="mt-3 mt-md-5 mb-4 mb-md-0 pt-0 pt-md-5">
                         <FlexBox justifyContent="space-between" alignItems="center">
@@ -96,22 +92,22 @@ const Home = () => {
                                 </Dropdown.Menu>
                             </Dropdown>
 
-                            <a href="/lessons"
+                            <Link to="/lessons"
                                 className="btn btn-primary text-uppercase border-0 mt-3 mt-md-0 d-flex align-items-center space-letters-sm text-sm">
                                 <Calendar className="mr-2" /> view my lessons
-                            </a>
+                            </Link>
                         </FlexBox>
                     </div>
 
                     {/* No Record found */}
-                    {(!allLessonsLoading && allLessonsFallback.length < 0) && <NothingHere
+                    {(!allLessonsLoading && allLessons.length < 0) && <NothingHere
                         NothingImage={NothingImage}
                         header="Oops! Try again later"
                         body="There are no live lessons for this subject at the moment"
                     />}
 
                     <LessonsCardGrid columns={3} rowGap="40px" columnGap="30px" className="mt-3">
-                        {allLessonsFallback.map(({
+                        {allLessons.map(({
                             id,
                             image_url,
                             subject: {

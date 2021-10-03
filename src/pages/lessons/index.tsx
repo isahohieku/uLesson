@@ -1,14 +1,7 @@
 import NothingHere from "@components/NothingHere";
 import { Wrapper } from "@pages/home/styled";
 import { Col, Container, Dropdown, Row } from "react-bootstrap";
-import NothingImage from '@assets/svg/empty-lessons.svg';
-import Calendar from '@assets/svg/calendar-white.svg';
-import WeirdVector from '@assets/svg/weird-vector.svg';
-import Timer from '@assets/svg/timer.svg';
-import Paw from '@assets/img/paw.png';
-import User from '@assets/svg/user.svg';
-import HourGlass from '@assets/svg/hour-glass.svg';
-import Arrow from '@assets/svg/arrow.svg';
+import { Link } from "react-router-dom";
 import { FlexBox } from "@styles/shared/flexbox";
 import React, { useEffect, useState } from 'react';
 import { LessonStatusesIcons, lessonStatuses, lessonEngagementStatuses, ILesson } from "@types";
@@ -22,10 +15,17 @@ import { getUserLessons } from "@services/lessons";
 import { useStateValue } from "@context";
 import getUserLessonsActions from "@context/actions/user_lessons";
 import { hexColors } from "@styles/shared/colors";
+import NothingImage from '@assets/svg/empty-lessons.svg';
+import Calendar from '@assets/svg/calendar-white.svg';
+import WeirdVector from '@assets/svg/weird-vector.svg';
+import Timer from '@assets/svg/timer.svg';
+import Paw from '@assets/img/paw.png';
+import User from '@assets/svg/user.svg';
+import HourGlass from '@assets/svg/hour-glass.svg';
+import Arrow from '@assets/svg/arrow.svg';
 
 const Lessons = () => {
     const [activeSection, setActiveSection] = useState('');
-    const [userLessonsFallback, setUserLessonFallback] = useState([]);
 
     const { state: { userLessons, userLessonsLoading }, dispatch } = useStateValue();
 
@@ -37,13 +37,11 @@ const Lessons = () => {
 
     useEffect(() => {
         const getAllUserLessons = async () => {
-            const usersLessons: ILesson[] = await getUserLessons(
+            await getUserLessons(
                 setUserLessonsLoading,
                 setUserLessons,
                 clearUserLessons
             );
-
-            setUserLessonFallback(usersLessons);
         };
 
         getAllUserLessons();
@@ -54,7 +52,7 @@ const Lessons = () => {
             <Row>
                 <Col>
                     <div className="d-flex align-items-center mb-5">
-                        <a href="/" className="btn"><Arrow /></a>
+                        <Link to="/" className="btn"><Arrow /></Link>
                         <h3 className="font-weight-bold ml-3 mb-0">My Lessons</h3>
                     </div>
 
@@ -64,7 +62,6 @@ const Lessons = () => {
                                 <Dropdown.Toggle className="space-letters-sm text-sm">
                                     {activeSection || 'All Subjects'}
                                 </Dropdown.Toggle>
-
                                 <Dropdown.Menu>
                                     <Dropdown.Item onClick={() => setActiveSection('All Subjects')}>All Subjects</Dropdown.Item>
                                     <Dropdown.Item onClick={() => setActiveSection('English')}>English</Dropdown.Item>
@@ -74,7 +71,8 @@ const Lessons = () => {
 
 
                             <AddLiveButton type="button"
-                                className="btn btn-primary mt-3 mt-md-0 text-uppercase overflow-hidden font-weight-bold border-0 d-flex align-items-center px-5 space-letters-sm text-sm">
+                                className="btn btn-primary mt-3 mt-md-0 text-uppercase overflow-hidden
+                                font-weight-bold border-0 d-flex align-items-center px-5 space-letters-sm text-sm">
                                 add live lessons
                                 <span />
                                 <WeirdVector />
@@ -83,7 +81,7 @@ const Lessons = () => {
                     </div>
 
                     <LessonsCardGrid columns={2} rowGap="40px" columnGap="30px" className="mt-5 pb-5">
-                        {userLessonsFallback.map(({
+                        {!userLessonsLoading && userLessons.map(({
                             id,
                             image_url,
                             subject: {
@@ -130,7 +128,7 @@ const Lessons = () => {
                             </LessonCard>)}
                     </LessonsCardGrid>
                     {/* No Record found */}
-                    {(!userLessonsLoading && userLessonsFallback.length < 0) && <NothingHere
+                    {(!userLessonsLoading && userLessons.length < 0) && <NothingHere
                         header="Oops! Nothing here"
                         body="Looks like you have not added a lesson for this subject"
                         NothingImage={NothingImage}

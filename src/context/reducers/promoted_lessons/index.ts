@@ -10,7 +10,7 @@ export const promotedReducer = (state: AppState, action: StateAction): AppState 
 
     switch (action?.type) {
         case SET_PROMOTED_LESSONS:
-            if ((state?.promotedLessons.length > 0) && equals(state?.promotedLessons, action.payload)) {
+            if ((state?.promotedLessons?.length > 0) && equals(state?.promotedLessons, action.payload)) {
                 return state;
             }
 

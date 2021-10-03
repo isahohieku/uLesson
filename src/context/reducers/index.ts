@@ -1,8 +1,8 @@
 import { AppState } from '@types';
 import { combineReducers } from '@utils/context';
-import { allLessonsReducer } from './all_lessons';
-import { promotedReducer } from './promoted_lessons';
-import { userLessonsReducer } from './user_lessons';
+import { allLessonsReducer as allLessons } from './all_lessons';
+import { promotedReducer as promotedLessons } from './promoted_lessons';
+import { userLessonsReducer as userLessons } from './user_lessons';
 
 export const initialState: AppState = {
     promotedLessons: [],
@@ -14,7 +14,7 @@ export const initialState: AppState = {
 };
 
 export const reducer = combineReducers({
-    allLessonsReducer,
-    promotedReducer,
-    userLessonsReducer,
+    allLessons,
+    promotedLessons,
+    userLessons,
 });

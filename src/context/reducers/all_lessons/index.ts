@@ -9,7 +9,7 @@ import {
 export const allLessonsReducer = (state: AppState, action: StateAction): AppState => {
     switch (action.type) {
         case SET_ALL_LESSONS:
-            if ((state?.allLessons.length > 0) && equals(state?.allLessons, action.payload)) {
+            if ((state?.allLessons?.length > 0) && equals(state?.allLessons, action.payload)) {
                 return state;
             }
 
